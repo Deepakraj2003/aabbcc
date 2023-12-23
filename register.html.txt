@@ -1,0 +1,135 @@
+<!--==================================
+=            Registration            =
+===================================-->
+
+<section class="registration">
+	<div class="container-fuild p-0">
+		<div class="row">
+			<div class="col-lg-6 col-md-12 p-0">
+				<div class="service-block bg-service overlay-primary text-center">
+					<div class="row no-gutters">
+						<div class="col-6">
+							<!-- Service item -->
+							<div class="service-item">
+								<i class="fa fa-microphone"></i>
+								<h5>8+ Speakers</h5>
+							</div>
+						</div>
+						<div class="col-6">
+							<!-- Service item -->
+							<div class="service-item">
+								<i class="fa fa-flag"></i>
+								<h5>500 + Seats</h5>
+							</div>
+						</div>
+						<!-- <div class="col-6">
+							Service item
+							<div class="service-item">
+								<i class="fa fa-ticket"></i>
+								<h5>300 tickets</h5>
+							</div>
+						</div> -->
+						<div class="col-6">
+							<!-- Service item -->
+							<div class="service-item">
+								<i class="fa fa-calendar"></i>
+								<h5>3 days event</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-12 p-0">
+				<div class="registration-block bg-registration overlay-dark">
+					<div class="block">
+						<div class="title text-left">
+							<h3>Register to <span class="alternate">Eventre</span></h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+						</div>
+						<form id="resumeForm" class="row">
+							<div class="col-md-6">
+								<input type="text" class="form-control main" id="name" placeholder="Your Name">
+							</div>
+							<div class="col-md-6">
+								<input type="email" class="form-control main" id="email" placeholder="Email">
+							</div>
+							<div class="col-md-6">
+								<input type="text" class="form-control main" id="school" placeholder="School">
+							</div>
+							<div class="col-12">
+								<button type="submit"  class="btn btn-white-md" id="regi">Register Now</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script>
+    document.getElementById("resumeForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+    });
+  </script>
+
+	<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+    import{getDatabase,set,get,update,remove,ref,child} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  
+	const firebaseConfig = {
+    apiKey: "AIzaSyBCKeveOtEGbJwwe91LfcW7lKxgqa-v1o4",
+    authDomain: "stjosephsitportal-1ef0e.firebaseapp.com",
+    databaseURL: "https://stjosephsitportal-1ef0e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "stjosephsitportal-1ef0e",
+    storageBucket: "stjosephsitportal-1ef0e.appspot.com",
+    messagingSenderId: "54812983768",
+    appId: "1:54812983768:web:7d760cbc22c3ec7da4b2ad",
+    measurementId: "G-RHDK7RPB9X"
+  };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db=getDatabase()
+  
+  var name=document.getElementById("name");
+  var email=document.getElementById("email");
+  var school=document.getElementById("school");
+  console.log(name, email, school);
+//   var coor=document.getElementById("coor");
+//   var status=document.getElementById("status");
+ 
+ 
+  var Generate = document.querySelector("#regi");
+  Generate.addEventListener('click', InsertData);
+
+function InsertData() {
+ 
+  if (name.value && email.value && school.value) {
+    set(ref(db, "Workshop/" + name.value), {
+        Name: name.value,
+        Email:email.value,
+		School:school.value 
+      })
+      .then(() => {
+        alert("Data added successfully!");
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  } else {
+    console.log("Please fill in all the fields before submitting.");
+  }
+}
+
+  Generate.addEventListener('click',InsertData());
+    
+  </script>
+
+<!--====  End of Registration  ====-->
